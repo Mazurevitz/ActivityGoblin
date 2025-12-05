@@ -1,0 +1,7 @@
+# ActivityGoblin - Timesheet Activity Tracker
+# No external dependencies required - uses only Python standard library
+#
+# Optional dependencies for development:
+# pytest>=7.0.0    # For running tests
+# black>=23.0.0    # For code formatting
+# mypy>=1.0.0      # For type checking
