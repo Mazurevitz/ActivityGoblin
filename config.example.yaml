@@ -1,0 +1,93 @@
+# ActivityGoblin - Tempo Timesheet Configuration
+#
+# SETUP: Copy this file to config.yaml and edit with your settings:
+#   cp config.example.yaml config.yaml
+#
+# SECURITY: config.yaml is gitignored - your API keys stay local
+
+# Your Tempo API settings
+tempo:
+  api_url: "https://api.tempo.io/4"
+  # Store your API token in environment variable TEMPO_API_TOKEN
+  # Or set it here (not recommended for version control):
+  # api_token: "your-token-here"
+
+# Default task for unassigned time
+default_task:
+  key: "ADMIN-001"
+  name: "Administrative / Unassigned"
+
+# Hour rounding: none, 15min, 30min
+rounding: "15min"
+
+# Clients and their task patterns
+clients:
+  - name: "Client A"
+    jira_project: "CLIENTA"
+
+    # Tasks for this client
+    tasks:
+      - key: "CLIENTA-100"
+        name: "Development"
+
+      - key: "CLIENTA-101"
+        name: "Meetings & Communication"
+
+      - key: "CLIENTA-102"
+        name: "Code Review"
+
+    # Auto-matching patterns
+    patterns:
+      # Match Citrix with specific window title
+      - app_contains: "Citrix"
+        title_contains: "MVW"
+        default_task: "CLIENTA-100"
+
+      # Match specific URLs
+      - url_contains: "clienta.atlassian.net"
+        default_task: "CLIENTA-100"
+
+      # Match Teams chats with client
+      - app_contains: "Teams"
+        title_contains: "Client A"
+        default_task: "CLIENTA-101"
+
+  - name: "Internal"
+    jira_project: "INT"
+
+    tasks:
+      - key: "INT-001"
+        name: "Internal Tooling"
+
+      - key: "INT-002"
+        name: "Training & Learning"
+
+      - key: "INT-003"
+        name: "Admin & Email"
+
+    patterns:
+      - url_contains: "github.com/YourOrg"
+        default_task: "INT-001"
+
+      - app_contains: "Outlook"
+        default_task: "INT-003"
+
+# Category-based fallback matching (if no client pattern matches)
+categories:
+  meetings:
+    apps: ["Teams", "Zoom", "Webex", "Slack huddle"]
+    default_task: null  # Will prompt for task
+
+  development:
+    apps: ["VS Code", "Code", "Xcode", "Terminal", "iTerm"]
+    default_task: null
+
+  communication:
+    apps: ["Outlook", "Mail", "Slack"]
+    default_task: null
+
+# Minimum block duration to track (in minutes)
+min_duration_minutes: 5
+
+# Working hours target per day
+daily_hours_target: 8.0

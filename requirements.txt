@@ -1,6 +1,9 @@
 # ActivityGoblin - Timesheet Activity Tracker
-# No external dependencies required - uses only Python standard library
-#
+
+# Required for Tempo integration
+pyyaml>=6.0       # Config file parsing
+requests>=2.28    # Tempo API calls
+
 # Optional dependencies for development:
 # pytest>=7.0.0    # For running tests
 # black>=23.0.0    # For code formatting

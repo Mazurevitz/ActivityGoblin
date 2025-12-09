@@ -1,0 +1,41 @@
+# ActivityGoblin - Git Ignore
+
+# Config with API keys (use config.example.yaml as template)
+config.yaml
+
+# Learned patterns (user-specific)
+learned_patterns.yaml
+
+# Tempo exports (contains personal timesheet data)
+tempo/
+
+# Log files
+*.log
+logger.log
+summarize.log
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.env
+.venv
+env/
+venv/
+*.egg-info/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# PID files
+.logger.pid

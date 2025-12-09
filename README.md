@@ -151,6 +151,98 @@ launchctl load ~/Library/LaunchAgents/com.activitygoblin.summarize.plist
 
 This creates daily summaries in `summaries/YYYY-MM-DD-summary.json` with YouTube and entertainment filtered out.
 
+## Tempo Timesheet Integration
+
+Export your activity to Jira Tempo with interactive review and pattern learning.
+
+### Setup
+
+```bash
+# Install dependencies
+pip install pyyaml requests
+
+# Create your config from template
+cp config.example.yaml config.yaml
+
+# Edit config.yaml with your clients, tasks, and patterns
+```
+
+### Interactive Review
+
+```bash
+# Review today's timesheet
+python3 -m tracker.tempo
+
+# Review specific date
+python3 -m tracker.tempo 2024-12-01
+
+# Review yesterday
+python3 -m tracker.tempo --yesterday
+```
+
+The interactive CLI shows:
+```
+═══════════════════════════════════════════════════════════
+  TIMESHEET REVIEW - 2024-12-08
+═══════════════════════════════════════════════════════════
+  Total: 7.5h / 8.0h target
+  Assigned: 6.0h | Unassigned entries: 3
+───────────────────────────────────────────────────────────
+
+[ 1] 09:52-11:06 (1.25h) → CLIENTA-100
+     Development
+     ✓ Citrix Viewer | MVW US ZUE2 Azure PRD
+     Client: Client A
+
+[ 2] 14:00-15:00 (1.00h) → UNASSIGNED
+     ⚠ Terminal | ActivityGoblin project
+```
+
+Commands: `[a]pprove`, `[e N]dit entry`, `[d]efault all`, `[u]pload to Tempo`
+
+### Auto-Export (No Review)
+
+```bash
+# Export without interactive review
+python3 -m tracker.tempo --export-only
+
+# Export and upload to Tempo API
+python3 -m tracker.tempo --export-only --upload
+```
+
+### Pattern Learning
+
+When you correct a task assignment, the system learns:
+- First correction: Pattern saved with low confidence
+- After 5 uses: Auto-applied without prompting
+- Patterns stored in `learned_patterns.yaml`
+
+### Config Example
+
+```yaml
+clients:
+  - name: "Client A"
+    tasks:
+      - key: "CLIENTA-100"
+        name: "Development"
+    patterns:
+      - app_contains: "Citrix"
+        title_contains: "MVW"
+        default_task: "CLIENTA-100"
+
+default_task:
+  key: "ADMIN-001"
+  name: "Administrative"
+
+rounding: "15min"  # none, 15min, 30min
+```
+
+### Security
+
+- `config.yaml` is gitignored (contains API token)
+- Use `TEMPO_API_TOKEN` env var instead of storing in file
+- `learned_patterns.yaml` is gitignored (user-specific)
+
 ## Output Examples
 
 ### Raw Log Entry (JSONL)
