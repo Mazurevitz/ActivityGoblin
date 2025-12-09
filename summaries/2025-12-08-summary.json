@@ -1,0 +1,399 @@
+{
+  "date": "2025-12-08",
+  "total_entries": 79,
+  "blocks": [
+    {
+      "from": "2025-12-08T08:02:06.691858",
+      "to": "2025-12-08T08:02:06.691858",
+      "duration_minutes": 0.0,
+      "app": "Terminal",
+      "titles": [],
+      "entry_count": 1
+    },
+    {
+      "from": "2025-12-08T09:20:01.251201",
+      "to": "2025-12-08T09:20:01.251201",
+      "duration_minutes": 0.0,
+      "app": "Terminal",
+      "titles": [],
+      "entry_count": 1
+    },
+    {
+      "from": "2025-12-08T09:31:42.383647",
+      "to": "2025-12-08T09:31:42.383647",
+      "duration_minutes": 0.0,
+      "app": "Safari",
+      "titles": [],
+      "entry_count": 1,
+      "urls": [
+        "https://chatgpt.com/g/g-p-6808b839a3f88191a9adc9fd38c13215-szkolenie-ai/c/6933496c-a6c0-832b-962b-49db99b64dec"
+      ]
+    },
+    {
+      "from": "2025-12-08T09:37:03.202163",
+      "to": "2025-12-08T09:37:03.202163",
+      "duration_minutes": 0.0,
+      "app": "Microsoft Outlook",
+      "titles": [],
+      "entry_count": 1
+    },
+    {
+      "from": "2025-12-08T09:42:18.618313",
+      "to": "2025-12-08T09:47:38.272317",
+      "duration_minutes": 5.3,
+      "app": "Google Chrome",
+      "titles": [],
+      "entry_count": 2,
+      "urls": [
+        "https://github.com/Mazurevitz/Modern-advanced-Artificial-Intelligence-and-AI-based-tools/settings",
+        "https://chatgpt.com/g/g-p-68a5dba9e1bc819182b2259cfe977cc3-forte/c/6932bd31-5d50-8330-90dc-04f652fa5483"
+      ]
+    },
+    {
+      "from": "2025-12-08T09:52:54.468153",
+      "to": "2025-12-08T11:06:41.985499",
+      "duration_minutes": 73.8,
+      "app": "Citrix Viewer",
+      "titles": [
+        "MVW US ZUE2 Azure PRD"
+      ],
+      "entry_count": 14
+    },
+    {
+      "from": "2025-12-08T11:11:57.980769",
+      "to": "2025-12-08T11:11:57.980769",
+      "duration_minutes": 0.0,
+      "app": "Safari",
+      "titles": [
+        "Download - interop.io"
+      ],
+      "entry_count": 1,
+      "urls": [
+        "https://interop.io/download/?path=/install/enterprise/pictet-9.10/stable/9.10.0.5/ioConnectDesktopBundle&type=a"
+      ]
+    },
+    {
+      "from": "2025-12-08T11:17:13.723729",
+      "to": "2025-12-08T12:15:21.183145",
+      "duration_minutes": 58.1,
+      "app": "Citrix Viewer",
+      "titles": [
+        "MVW US ZUE2 Azure PRD"
+      ],
+      "entry_count": 11
+    },
+    {
+      "from": "2025-12-08T12:20:38.954530",
+      "to": "2025-12-08T12:20:38.954530",
+      "duration_minutes": 0.0,
+      "app": "Google Chrome",
+      "titles": [
+        "Forte - Run project setup - Google Chrome"
+      ],
+      "entry_count": 1,
+      "urls": [
+        "https://chatgpt.com/c/6932bd31-5d50-8330-90dc-04f652fa5483"
+      ]
+    },
+    {
+      "from": "2025-12-08T12:25:56.852323",
+      "to": "2025-12-08T12:27:23.174902",
+      "duration_minutes": 1.4,
+      "app": "Terminal",
+      "titles": [],
+      "entry_count": 2
+    },
+    {
+      "from": "2025-12-08T12:32:40.688400",
+      "to": "2025-12-08T12:32:40.688400",
+      "duration_minutes": 0.0,
+      "app": "Google Chrome",
+      "titles": [],
+      "entry_count": 1,
+      "urls": [
+        "https://chatgpt.com/c/6932bd31-5d50-8330-90dc-04f652fa5483"
+      ]
+    },
+    {
+      "from": "2025-12-08T12:38:00.547618",
+      "to": "2025-12-08T12:38:00.547618",
+      "duration_minutes": 0.0,
+      "app": "Terminal",
+      "titles": [],
+      "entry_count": 1
+    },
+    {
+      "from": "2025-12-08T12:43:17.308724",
+      "to": "2025-12-08T12:59:11.978792",
+      "duration_minutes": 15.9,
+      "app": "Citrix Viewer",
+      "titles": [
+        "MVW US ZUE2 Azure PRD"
+      ],
+      "entry_count": 4
+    },
+    {
+      "from": "2025-12-08T13:04:29.266866",
+      "to": "2025-12-08T13:09:46.476112",
+      "duration_minutes": 5.3,
+      "app": "Terminal",
+      "titles": [
+        "MacMouseMover — ✳ Code Review Analysis — claude --continue — 202×56"
+      ],
+      "entry_count": 2
+    },
+    {
+      "from": "2025-12-08T13:15:03.958872",
+      "to": "2025-12-08T13:25:38.891110",
+      "duration_minutes": 10.6,
+      "app": "Citrix Viewer",
+      "titles": [
+        "MVW US ZUE2 Azure PRD"
+      ],
+      "entry_count": 3
+    },
+    {
+      "from": "2025-12-08T13:30:56.115979",
+      "to": "2025-12-08T13:30:56.115979",
+      "duration_minutes": 0.0,
+      "app": "Terminal",
+      "titles": [],
+      "entry_count": 1
+    },
+    {
+      "from": "2025-12-08T13:52:36.194240",
+      "to": "2025-12-08T13:52:36.194240",
+      "duration_minutes": 0.0,
+      "app": "Terminal",
+      "titles": [
+        "MacMouseMover — MacMouseMover — 202×56"
+      ],
+      "entry_count": 1
+    },
+    {
+      "from": "2025-12-08T13:57:53.460652",
+      "to": "2025-12-08T13:57:53.460652",
+      "duration_minutes": 0.0,
+      "app": "Citrix Viewer",
+      "titles": [],
+      "entry_count": 1
+    },
+    {
+      "from": "2025-12-08T14:14:00.654885",
+      "to": "2025-12-08T14:14:00.654885",
+      "duration_minutes": 0.0,
+      "app": "Terminal",
+      "titles": [],
+      "entry_count": 1
+    },
+    {
+      "from": "2025-12-08T14:19:18.187518",
+      "to": "2025-12-08T14:19:18.187518",
+      "duration_minutes": 0.0,
+      "app": "MSTeams",
+      "titles": [
+        "Chat | Andy Gardner | Microsoft Teams"
+      ],
+      "entry_count": 1
+    },
+    {
+      "from": "2025-12-08T14:35:09.146528",
+      "to": "2025-12-08T14:50:56.535601",
+      "duration_minutes": 15.8,
+      "app": "Finder",
+      "titles": [],
+      "entry_count": 4
+    },
+    {
+      "from": "2025-12-08T14:56:12.560692",
+      "to": "2025-12-08T15:01:27.884905",
+      "duration_minutes": 5.3,
+      "app": "Terminal",
+      "titles": [
+        "Modern-Advanced-AI-and-Tools — ls — 202×56"
+      ],
+      "entry_count": 2
+    },
+    {
+      "from": "2025-12-08T15:06:44.265426",
+      "to": "2025-12-08T15:12:00.671417",
+      "duration_minutes": 5.3,
+      "app": "Safari",
+      "titles": [],
+      "entry_count": 2,
+      "urls": [
+        "http://localhost:8000/day1/module1_intro_to_ai.html#/2/1/5",
+        "https://chatgpt.com/g/g-p-6808b839a3f88191a9adc9fd38c13215-szkolenie-ai/c/693096aa-0728-832c-8bc8-bbbb9e6d8efa"
+      ]
+    },
+    {
+      "from": "2025-12-08T15:17:18.105090",
+      "to": "2025-12-08T15:22:35.547303",
+      "duration_minutes": 5.3,
+      "app": "Terminal",
+      "titles": [
+        "RevealJS — ✳ Training Deck Evaluation — claude — 202×56"
+      ],
+      "entry_count": 2
+    },
+    {
+      "from": "2025-12-08T15:27:51.734014",
+      "to": "2025-12-08T15:33:09.004896",
+      "duration_minutes": 5.3,
+      "app": "Safari",
+      "titles": [],
+      "entry_count": 2,
+      "urls": [
+        "http://localhost:8000/day1/module1_intro_to_ai.html#/4/2/5",
+        "http://localhost:8000/day1/module1_intro_to_ai.html#/3/4/3"
+      ]
+    },
+    {
+      "from": "2025-12-08T15:38:26.116445",
+      "to": "2025-12-08T15:38:26.116445",
+      "duration_minutes": 0.0,
+      "app": "Notes",
+      "titles": [],
+      "entry_count": 1
+    },
+    {
+      "from": "2025-12-08T15:43:42.132310",
+      "to": "2025-12-08T15:43:42.132310",
+      "duration_minutes": 0.0,
+      "app": "Terminal",
+      "titles": [],
+      "entry_count": 1
+    },
+    {
+      "from": "2025-12-08T16:20:41.267611",
+      "to": "2025-12-08T16:57:35.542891",
+      "duration_minutes": 36.9,
+      "app": "Terminal",
+      "titles": [],
+      "entry_count": 8
+    },
+    {
+      "from": "2025-12-08T17:02:52.518513",
+      "to": "2025-12-08T17:02:52.518513",
+      "duration_minutes": 0.0,
+      "app": "Safari",
+      "titles": [
+        "7 Pillars Prompt Builder | AI Image Generation"
+      ],
+      "entry_count": 1,
+      "urls": [
+        "file:///Volumes/external_storage/Training/Modern-Advanced-AI-and-Tools/RevealJS/interactive-tools/7-pillars-prompt-builder.html"
+      ]
+    },
+    {
+      "from": "2025-12-08T17:08:08.997196",
+      "to": "2025-12-08T17:29:15.218213",
+      "duration_minutes": 21.1,
+      "app": "Terminal",
+      "titles": [],
+      "entry_count": 5
+    }
+  ],
+  "summary": [
+    {
+      "from": "08:02",
+      "to": "08:02",
+      "summary": "Initial login or startup activities"
+    },
+    {
+      "from": "09:20",
+      "to": "09:20",
+      "summary": "Researching AI topics on ChatGPT website"
+    },
+    {
+      "from": "09:31",
+      "to": "09:31",
+      "summary": "Exploring AI-related content on Safari"
+    },
+    {
+      "from": "09:42",
+      "to": "09:47",
+      "summary": "Browsing GitHub settings and AI tools on Google Chrome"
+    },
+    {
+      "from": "09:52",
+      "to": "11:06",
+      "summary": "Working in Citrix Viewer, likely remote access or training"
+    },
+    {
+      "from": "11:11",
+      "to": "11:11",
+      "summary": "Downloading software from interop.io on Safari"
+    },
+    {
+      "from": "11:17",
+      "to": "12:15",
+      "summary": "Continuing work in Citrix Viewer, possibly remote access or training"
+    },
+    {
+      "from": "12:20",
+      "to": "12:20",
+      "summary": "Running project setup on Google Chrome"
+    },
+    {
+      "from": "12:25",
+      "to": "12:27",
+      "summary": "Quick Terminal session for unknown purpose"
+    },
+    {
+      "from": "12:32",
+      "to": "12:32",
+      "summary": "Returning to previous project setup on Google Chrome"
+    },
+    {
+      "from": "12:38",
+      "to": "12:38",
+      "summary": "Another quick Terminal session"
+    },
+    {
+      "from": "13:04",
+      "to": "13:09",
+      "summary": "Reviewing code or analyzing data in Terminal"
+    },
+    {
+      "from": "13:15",
+      "to": "13:25",
+      "summary": "Continuing work in Citrix Viewer, possibly remote access or training"
+    },
+    {
+      "from": "14:14",
+      "to": "14:14",
+      "summary": "Taking a short break"
+    },
+    {
+      "from": "14:35",
+      "to": "14:50",
+      "summary": "Organizing files or working in Finder"
+    },
+    {
+      "from": "15:06",
+      "to": "15:12",
+      "summary": "Exploring online training materials on Safari"
+    },
+    {
+      "from": "15:17",
+      "to": "15:22",
+      "summary": "Evaluating training deck content in Terminal"
+    },
+    {
+      "from": "15:27",
+      "to": "15:33",
+      "summary": "Continuing online training session on Safari"
+    },
+    {
+      "from": "16:20",
+      "to": "16:57",
+      "summary": "Long-running Terminal session, possibly debugging or testing"
+    },
+    {
+      "from": "17:02",
+      "to": "17:02",
+      "summary": "Using AI image generation tool on Safari"
+    }
+  ]
+}

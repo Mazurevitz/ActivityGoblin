@@ -3,13 +3,18 @@
 Task Mapper - Maps activity blocks to Jira tasks using patterns and learning.
 """
 
+import json
 import logging
 import os
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
-import yaml
+try:
+    import yaml
+    HAS_YAML = True
+except ImportError:
+    HAS_YAML = False
 
 logger = logging.getLogger(__name__)
 
@@ -27,27 +32,69 @@ class TaskMapper:
         self.config = self._load_config()
         self.learned = self._load_learned_patterns()
 
+    def _get_default_config(self) -> dict:
+        """Return default configuration when no config file exists."""
+        return {
+            "default_task": {
+                "key": "MISC-001",
+                "name": "Miscellaneous / Unassigned",
+            },
+            "rounding": "15min",
+            "daily_hours_target": 8.0,
+            "min_duration_minutes": 5,
+            "clients": [],
+            "categories": {},
+        }
+
     def _load_config(self) -> dict:
         """Load configuration from YAML file."""
         if not self.config_path.exists():
-            logger.warning(f"Config not found: {self.config_path}")
-            return {}
+            logger.info(f"Config not found: {self.config_path} - using defaults")
+            return self._get_default_config()
 
-        with open(self.config_path, "r", encoding="utf-8") as f:
-            return yaml.safe_load(f) or {}
+        if not HAS_YAML:
+            logger.warning("PyYAML not installed - using default config. Run: pip install pyyaml")
+            return self._get_default_config()
+
+        try:
+            with open(self.config_path, "r", encoding="utf-8") as f:
+                config = yaml.safe_load(f) or {}
+                # Merge with defaults
+                defaults = self._get_default_config()
+                for key, value in defaults.items():
+                    if key not in config:
+                        config[key] = value
+                return config
+        except Exception as e:
+            logger.error(f"Failed to load config: {e}")
+            return self._get_default_config()
 
     def _load_learned_patterns(self) -> dict:
-        """Load learned patterns from YAML file."""
+        """Load learned patterns from YAML/JSON file."""
         if not self.learned_path.exists():
             return {"patterns": [], "corrections": []}
 
-        with open(self.learned_path, "r", encoding="utf-8") as f:
-            return yaml.safe_load(f) or {"patterns": [], "corrections": []}
+        try:
+            with open(self.learned_path, "r", encoding="utf-8") as f:
+                if HAS_YAML:
+                    return yaml.safe_load(f) or {"patterns": [], "corrections": []}
+                else:
+                    # Try JSON as fallback
+                    return json.load(f)
+        except Exception as e:
+            logger.warning(f"Failed to load learned patterns: {e}")
+            return {"patterns": [], "corrections": []}
 
     def _save_learned_patterns(self) -> None:
-        """Save learned patterns to YAML file."""
-        with open(self.learned_path, "w", encoding="utf-8") as f:
-            yaml.dump(self.learned, f, default_flow_style=False, allow_unicode=True)
+        """Save learned patterns to YAML/JSON file."""
+        try:
+            with open(self.learned_path, "w", encoding="utf-8") as f:
+                if HAS_YAML:
+                    yaml.dump(self.learned, f, default_flow_style=False, allow_unicode=True)
+                else:
+                    json.dump(self.learned, f, indent=2)
+        except Exception as e:
+            logger.error(f"Failed to save learned patterns: {e}")
 
     def _pattern_matches(self, pattern: dict, entry: dict) -> bool:
         """Check if a pattern matches an entry."""

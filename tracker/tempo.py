@@ -376,23 +376,31 @@ class TempoReview:
     def upload_to_tempo(self, date: str) -> bool:
         """Upload entries to Tempo API."""
         if not HAS_REQUESTS:
-            logger.error("requests library not installed. Run: pip install requests")
+            print("\n[!] Cannot upload: 'requests' library not installed")
+            print("    Run: pip install requests")
+            print("    Your timesheet was still exported to CSV/JSON files.\n")
             return False
 
-        # Get API config
-        if not HAS_YAML:
-            logger.error("PyYAML not installed. Run: pip install pyyaml")
-            return False
+        # Get API token from environment first
+        api_token = os.environ.get("TEMPO_API_TOKEN")
+        api_url = "https://api.tempo.io/4"
 
-        with open(self.config_path, "r") as f:
-            config = yaml.safe_load(f)
-
-        tempo_config = config.get("tempo", {})
-        api_url = tempo_config.get("api_url", "https://api.tempo.io/4")
-        api_token = tempo_config.get("api_token") or os.environ.get("TEMPO_API_TOKEN")
+        # Try to load from config if env var not set
+        if not api_token and HAS_YAML and self.config_path.exists():
+            try:
+                with open(self.config_path, "r") as f:
+                    config = yaml.safe_load(f) or {}
+                tempo_config = config.get("tempo", {})
+                api_url = tempo_config.get("api_url", api_url)
+                api_token = tempo_config.get("api_token")
+            except Exception as e:
+                logger.debug(f"Could not load config for API: {e}")
 
         if not api_token:
-            logger.error("Tempo API token not found. Set TEMPO_API_TOKEN env var or add to config.yaml")
+            print("\n[!] Cannot upload: Tempo API token not configured")
+            print("    Set TEMPO_API_TOKEN environment variable, or")
+            print("    Add api_token to tempo section in config.yaml")
+            print("    Your timesheet was still exported to CSV/JSON files.\n")
             return False
 
         headers = {
