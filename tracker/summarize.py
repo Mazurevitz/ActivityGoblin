@@ -18,8 +18,28 @@ from typing import Optional
 
 # Default configuration
 DEFAULT_DATA_DIR = "data"
+DEFAULT_SUMMARY_DIR = "summaries"
 DEFAULT_MODEL = "llama3"
 DEFAULT_GAP_MINUTES = 15  # Minutes of gap to consider as new block
+
+# Work-related apps (case-insensitive matching)
+WORK_APPS = {
+    "citrix viewer", "microsoft outlook", "outlook", "microsoft teams", "msteams",
+    "teams", "slack", "zoom", "google chrome", "chrome", "safari", "arc",
+    "visual studio code", "code", "vs code", "xcode", "terminal", "iterm",
+    "finder", "preview", "notes", "notion", "obsidian", "microsoft word",
+    "microsoft excel", "microsoft powerpoint", "word", "excel", "powerpoint",
+    "figma", "sketch", "postman", "docker", "github desktop", "sourcetree",
+    "intellij", "pycharm", "webstorm", "datagrip", "sublime text", "atom",
+    "1password", "bitwarden", "keynote", "pages", "numbers", "mail",
+}
+
+# URL patterns to exclude (entertainment, social media, etc.)
+EXCLUDED_URL_PATTERNS = [
+    "youtube.com", "netflix.com", "twitch.tv", "reddit.com",
+    "twitter.com", "x.com", "facebook.com", "instagram.com",
+    "tiktok.com", "discord.com", "spotify.com", "music.apple.com",
+]
 
 logging.basicConfig(
     level=logging.INFO,
@@ -76,11 +96,38 @@ class ActivitySummarizer:
         self,
         data_dir: str = DEFAULT_DATA_DIR,
         model: str = DEFAULT_MODEL,
-        gap_minutes: int = DEFAULT_GAP_MINUTES
+        gap_minutes: int = DEFAULT_GAP_MINUTES,
+        work_only: bool = False,
+        summary_dir: str = DEFAULT_SUMMARY_DIR,
     ):
         self.data_dir = Path(data_dir)
+        self.summary_dir = Path(summary_dir)
         self.model = model
         self.gap_threshold = timedelta(minutes=gap_minutes)
+        self.work_only = work_only
+
+    def _is_work_entry(self, entry: dict) -> bool:
+        """Check if an entry is work-related."""
+        app = entry.get("app", "").lower()
+        url = entry.get("url", "").lower()
+
+        # Check if app is in work apps list
+        app_is_work = any(work_app in app for work_app in WORK_APPS)
+
+        # Check if URL contains excluded patterns
+        url_is_excluded = any(pattern in url for pattern in EXCLUDED_URL_PATTERNS)
+
+        # Work entry = work app AND not excluded URL
+        if url_is_excluded:
+            return False
+
+        return app_is_work
+
+    def _filter_work_entries(self, entries: list[dict]) -> list[dict]:
+        """Filter entries to only include work-related activity."""
+        filtered = [e for e in entries if self._is_work_entry(e)]
+        logger.info(f"Filtered to {len(filtered)} work entries (from {len(entries)} total)")
+        return filtered
 
     def load_entries(self, date: str) -> list[dict]:
         """
@@ -111,6 +158,10 @@ class ActivitySummarizer:
                     logger.warning(f"Invalid JSON on line {line_num}: {e}")
 
         logger.info(f"Loaded {len(entries)} entries from {log_path}")
+
+        if self.work_only:
+            entries = self._filter_work_entries(entries)
+
         return entries
 
     def _should_merge(self, block: ActivityBlock, entry: dict, entry_time: datetime) -> bool:
@@ -349,6 +400,24 @@ JSON response:"""
         blocks = self.group_into_blocks(entries)
         return [block.to_dict() for block in blocks]
 
+    def save_summary(self, result: dict, date: str) -> Path:
+        """
+        Save summary to file.
+
+        Args:
+            result: Summary dictionary
+            date: Date string for filename
+
+        Returns:
+            Path to saved file
+        """
+        self.summary_dir.mkdir(parents=True, exist_ok=True)
+        output_path = self.summary_dir / f"{date}-summary.json"
+        with open(output_path, "w", encoding="utf-8") as f:
+            json.dump(result, f, indent=2, ensure_ascii=False)
+        logger.info(f"Summary saved to {output_path}")
+        return output_path
+
 
 def main():
     """Main entry point for the summarizer."""
@@ -390,6 +459,23 @@ def main():
         help="Output only the activity blocks as JSON"
     )
     parser.add_argument(
+        "--work-only",
+        action="store_true",
+        help="Filter to work-related apps only (exclude YouTube, social media, etc.)"
+    )
+    parser.add_argument(
+        "-o", "--output",
+        type=str,
+        default=None,
+        metavar="DIR",
+        help="Save summary to directory (default: print to stdout)"
+    )
+    parser.add_argument(
+        "--yesterday",
+        action="store_true",
+        help="Summarize yesterday's activity (useful for midnight cron)"
+    )
+    parser.add_argument(
         "-v", "--verbose",
         action="store_true",
         help="Enable verbose logging"
@@ -400,25 +486,37 @@ def main():
     if args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)
 
+    # Handle yesterday flag
+    if args.yesterday:
+        target_date = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
+    else:
+        target_date = args.date
+
     # Validate date format
     try:
-        datetime.strptime(args.date, "%Y-%m-%d")
+        datetime.strptime(target_date, "%Y-%m-%d")
     except ValueError:
-        logger.error(f"Invalid date format: {args.date}. Use YYYY-MM-DD.")
+        logger.error(f"Invalid date format: {target_date}. Use YYYY-MM-DD.")
         sys.exit(1)
 
     summarizer = ActivitySummarizer(
         data_dir=args.data_dir,
         model=args.model,
-        gap_minutes=args.gap
+        gap_minutes=args.gap,
+        work_only=args.work_only,
+        summary_dir=args.output or DEFAULT_SUMMARY_DIR,
     )
 
     if args.blocks_only:
-        blocks = summarizer.summarize_blocks_only(args.date)
+        blocks = summarizer.summarize_blocks_only(target_date)
         print(json.dumps(blocks, indent=2))
     else:
-        result = summarizer.summarize(args.date, use_llm=not args.no_llm)
-        print(json.dumps(result, indent=2))
+        result = summarizer.summarize(target_date, use_llm=not args.no_llm)
+
+        if args.output:
+            summarizer.save_summary(result, target_date)
+        else:
+            print(json.dumps(result, indent=2))
 
 
 if __name__ == "__main__":

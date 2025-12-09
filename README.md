@@ -125,12 +125,31 @@ python3 -m tracker.summarize
 # Summarize specific date
 python3 -m tracker.summarize 2024-12-01
 
+# Work-only mode (excludes YouTube, social media, etc.)
+python3 -m tracker.summarize --work-only
+
+# Save to file instead of stdout
+python3 -m tracker.summarize --work-only -o summaries
+
+# Summarize yesterday (for midnight cron jobs)
+python3 -m tracker.summarize --yesterday --work-only -o summaries
+
 # Just show activity blocks (no AI)
 python3 -m tracker.summarize --no-llm
 
 # Use different Ollama model
 python3 -m tracker.summarize -m mistral
 ```
+
+### Auto-Summary at Midnight
+
+The summarizer can run automatically at midnight to generate work-only summaries:
+
+```bash
+launchctl load ~/Library/LaunchAgents/com.activitygoblin.summarize.plist
+```
+
+This creates daily summaries in `summaries/YYYY-MM-DD-summary.json` with YouTube and entertainment filtered out.
 
 ## Output Examples
 
