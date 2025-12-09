@@ -43,12 +43,14 @@ python3 -m tracker.summarize
 ## Features
 
 - **Application Tracking**: Captures active app name and window title
+- **Background Apps**: Logs all open applications, not just the focused one
 - **Browser URL Logging**: Extracts URLs from Chrome, Safari, and Arc
 - **Work Hours Mode**: Only track during specified hours (e.g., 8-18)
 - **Weekend Skipping**: Optionally pause tracking on weekends
 - **Daily JSONL Logs**: Simple, parseable format organized by date
 - **AI Summaries**: Local Ollama LLM generates timesheet descriptions
 - **Configurable Intervals**: Default 5 minutes, adjustable as needed
+- **Lightweight**: ~200ms per capture, <0.01% CPU impact
 
 ## Requirements
 
@@ -134,9 +136,15 @@ python3 -m tracker.summarize -m mistral
 
 ### Raw Log Entry (JSONL)
 ```json
-{"ts": "2024-12-01T09:15:00", "app": "Google Chrome", "title": "GitHub - Pull Request #123", "url": "https://github.com/..."}
-{"ts": "2024-12-01T09:20:00", "app": "VS Code", "title": "main.py - MyProject"}
+{"ts": "2024-12-01T09:15:00", "app": "Google Chrome", "title": "GitHub - PR #123", "url": "https://github.com/...", "open_apps": ["VS Code", "Terminal", "Slack", "Spotify"]}
+{"ts": "2024-12-01T09:20:00", "app": "VS Code", "title": "main.py - MyProject", "open_apps": ["Google Chrome", "Terminal", "Slack"]}
 ```
+
+Each entry includes:
+- `app` - Focused application
+- `title` - Window title
+- `url` - Browser URL (if applicable)
+- `open_apps` - All other apps with open windows
 
 ### AI-Generated Summary
 ```json

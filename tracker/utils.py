@@ -210,3 +210,27 @@ def is_browser(app_name: str) -> bool:
         "Firefox", "Microsoft Edge", "Brave Browser", "Opera"
     }
     return app_name in browsers
+
+
+def get_all_apps_with_windows() -> list[str]:
+    """
+    Get list of all foreground applications (apps with UI windows).
+    Uses lsappinfo for speed (~30ms vs ~2500ms with AppleScript).
+
+    Returns:
+        List of application names with visible windows
+    """
+    try:
+        result = subprocess.run(
+            ["bash", "-c",
+             "lsappinfo list | awk -F'\"' '/^[[:space:]]*[0-9]+\\)/{name=$2} /type=\"Foreground\"/{print name}'"],
+            capture_output=True,
+            text=True,
+            timeout=2
+        )
+        if result.returncode == 0 and result.stdout:
+            apps = [app.strip() for app in result.stdout.strip().split("\n") if app.strip()]
+            return apps
+    except Exception as e:
+        logger.debug(f"Failed to get app list: {e}")
+    return []

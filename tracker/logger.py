@@ -19,6 +19,7 @@ from typing import Optional
 from tracker.utils import (
     get_active_app_name,
     get_active_window_title,
+    get_all_apps_with_windows,
     get_browser_url,
     is_browser,
 )
@@ -126,6 +127,14 @@ class ActivityLogger:
             url = get_browser_url(app_name)
             if url:
                 entry["url"] = url
+
+        # Capture all apps with open windows
+        all_apps = get_all_apps_with_windows()
+        if all_apps:
+            # Exclude the focused app from the list
+            other_apps = [a for a in all_apps if a != app_name]
+            if other_apps:
+                entry["open_apps"] = other_apps
 
         return entry
 
